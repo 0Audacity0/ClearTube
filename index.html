@@ -1,0 +1,325 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#101114">
+<title>ClearTube — your video space</title>
+<style>
+:root{--bg:#101114;--panel:#181a20;--panel2:#20232b;--text:#f4f5f7;--muted:#a6abb7;--line:#2b2e38;--accent:#ff4d5d;--accent2:#ff7580;--radius:18px;--content:1500px}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:15px/1.45 Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}button,input,select{font:inherit}button{cursor:pointer;border:0;color:inherit}a{color:inherit;text-decoration:none}.app{min-height:100vh}.topbar{height:76px;position:sticky;top:0;z-index:10;background:rgba(16,17,20,.91);backdrop-filter:blur(18px);border-bottom:1px solid var(--line);display:flex;align-items:center;gap:22px;padding:0 28px}.brand{display:flex;align-items:center;gap:10px;min-width:220px;font-size:21px;font-weight:850;letter-spacing:-.8px}.logo{width:36px;height:27px;border-radius:9px;background:var(--accent);display:grid;place-items:center;box-shadow:0 6px 22px #ff4d5d33}.logo:after{content:"";border-left:10px solid white;border-top:6px solid transparent;border-bottom:6px solid transparent;margin-left:3px}.brand span{color:var(--accent)}.search{display:flex;gap:8px;max-width:690px;flex:1;margin:auto}.search input{width:100%;min-width:80px;background:#202229;border:1px solid #30333e;color:var(--text);padding:13px 17px;border-radius:14px;outline:none}.search input:focus{border-color:var(--accent)}.search button,.primary{background:var(--accent);border-radius:13px;padding:0 19px;font-weight:750}.search button:hover,.primary:hover{background:var(--accent2)}.top-actions{display:flex;gap:10px;align-items:center}.iconbtn,.secondary{background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:10px 13px}.iconbtn:hover,.secondary:hover{background:#2a2d37}.userbtn{white-space:nowrap}.layout{display:grid;grid-template-columns:235px minmax(0,1fr);max-width:1800px;margin:auto}.sidebar{padding:24px 15px 30px 22px;border-right:1px solid var(--line);min-height:calc(100vh - 76px);position:sticky;top:76px;height:calc(100vh - 76px);overflow:auto}.navgroup{margin-bottom:25px}.navlabel{color:#777e8c;text-transform:uppercase;letter-spacing:1.4px;font-size:10px;font-weight:800;padding:0 12px 10px}.navitem{display:flex;align-items:center;gap:13px;width:100%;padding:12px;border-radius:12px;background:transparent;color:var(--muted);text-align:left;margin:2px 0}.navitem .ico{width:22px;text-align:center;font-size:18px}.navitem.active,.navitem:hover{background:#26232a;color:var(--text)}.navitem.active{box-shadow:inset 3px 0 var(--accent)}.sidebar-note{margin:25px 7px 0;padding:15px;border:1px solid var(--line);background:var(--panel);border-radius:14px;color:var(--muted);font-size:12px}.sidebar-note b{display:block;color:var(--text);margin-bottom:5px}.main{padding:28px clamp(18px,3vw,46px) 60px;min-width:0}.hero{display:flex;justify-content:space-between;gap:20px;align-items:flex-end;margin:0 0 24px}.eyebrow{color:var(--accent2);text-transform:uppercase;font-size:11px;letter-spacing:1.8px;font-weight:850}.hero h1{font-size:clamp(27px,3vw,38px);letter-spacing:-1.4px;margin:5px 0 7px}.hero p{color:var(--muted);margin:0;max-width:650px}.chips{display:flex;gap:8px;overflow:auto;padding:0 0 19px;margin-bottom:4px}.chip{background:var(--panel2);border:1px solid var(--line);color:var(--muted);border-radius:999px;padding:9px 15px;white-space:nowrap}.chip.active,.chip:hover{background:#ffe7e9;color:#281316;border-color:#ffe7e9}.section-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:22px 0 14px}.section-head h2{font-size:19px;letter-spacing:-.4px;margin:0}.section-head p{font-size:12px;color:var(--muted);margin:3px 0 0}.video-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:25px 18px}.video-card{min-width:0;cursor:pointer}.thumb{border-radius:var(--radius);aspect-ratio:16/9;background:linear-gradient(135deg,#292d38,#17191f);border-radius:15px;overflow:hidden;position:relative;border:1px solid #ffffff0c}.thumb img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .25s}.video-card:hover .thumb img{transform:scale(1.035)}.duration{position:absolute;right:9px;bottom:9px;background:#08090bdc;padding:3px 7px;border-radius:6px;font-size:11px;font-weight:800}.card-row{display:flex;gap:11px;padding-top:12px}.avatar{flex:0 0 38px;width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,#ff7580,#7648cc);font-weight:850}.video-info{min-width:0;flex:1}.video-info h3{font-size:14px;line-height:1.4;margin:0 0 6px;font-weight:750;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}.video-info p{font-size:12px;color:var(--muted);margin:3px 0}.more{background:transparent;color:var(--muted);font-size:20px;padding:0 4px;align-self:flex-start}.empty{padding:35px;border:1px dashed #414552;border-radius:16px;color:var(--muted);text-align:center;grid-column:1/-1}.watch-layout{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:22px}.player{aspect-ratio:16/9;background:#050506;border-radius:17px;overflow:hidden;border:1px solid var(--line)}.player iframe{width:100%;height:100%;border:0}.watch-title{font-size:23px;letter-spacing:-.5px;margin:17px 0 8px}.watch-meta{color:var(--muted);font-size:13px}.watch-actions{display:flex;gap:8px;flex-wrap:wrap;margin:17px 0}.watch-side{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:15px;height:max-content}.watch-side h3{margin:2px 0 12px;font-size:15px}.mini-video{display:flex;gap:10px;margin:12px 0;cursor:pointer}.mini-video img{width:112px;aspect-ratio:16/9;object-fit:cover;border-radius:9px}.mini-video b{font-size:12px;line-height:1.35;display:block}.mini-video small{font-size:11px;color:var(--muted)}.settings{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}.setting-card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:19px}.setting-card h3{margin:0 0 7px;font-size:15px}.setting-card p{color:var(--muted);font-size:13px;margin:0 0 15px}.setting-card label{display:block;font-size:13px;color:var(--muted);margin:12px 0 6px}.setting-card input[type=text],.setting-card input[type=password],.setting-card select{width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--text)}.toggle-row{display:flex;justify-content:space-between;align-items:center;gap:15px;padding:12px 0;border-bottom:1px solid var(--line);font-size:13px}.toggle-row:last-child{border-bottom:0}.toggle-row input{accent-color:var(--accent);width:18px;height:18px}.notice{background:#211e24;border:1px solid #4d333a;border-radius:13px;padding:13px 15px;color:#e7cbd0;font-size:12px;margin:15px 0}.notice b{color:white}.primary,.secondary{padding:11px 15px}.primary:disabled{opacity:.5;cursor:not-allowed}.hidden{display:none!important}.footer{border-top:1px solid var(--line);margin-top:35px;padding-top:18px;color:#777e8c;font-size:11px}.toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);background:#f5f5f7;color:#15161a;padding:12px 18px;border-radius:12px;box-shadow:0 10px 35px #0007;z-index:50;font-weight:700;font-size:13px}.light{--bg:#f6f7fa;--panel:#fff;--panel2:#eceef3;--text:#171920;--muted:#636978;--line:#dfe2e9}.light .topbar{background:transparent}.light .search input{background:white;color:#171920}.light .chip.active{color:#281316}.light .notice{color:#74424b;background:#fff3f5}.light .notice b{color:#3b1b21}
+@media(max-width:1150px){.video-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.brand{min-width:auto}.watch-layout{grid-template-columns:minmax(0,1fr) 250px}.sidebar{padding-left:12px}.layout{grid-template-columns:190px minmax(0,1fr)}}
+@media(max-width:760px){.topbar{height:auto;min-height:68px;padding:12px 14px;gap:12px;flex-wrap:wrap}.brand{font-size:18px;flex:1}.search{order:3;flex-basis:100%;max-width:none}.top-actions{gap:5px}.top-actions .iconbtn{padding:9px}.layout{display:block}.sidebar{height:auto;min-height:0;position:sticky;top:112px;z-index:8;padding:8px 12px;border-right:0;border-bottom:1px solid var(--line);background:var(--bg);display:flex;gap:5px;overflow-x:auto}.navgroup{display:contents}.navlabel,.sidebar-note{display:none}.navitem{width:auto;white-space:nowrap;padding:9px 11px;margin:0;font-size:12px;gap:7px}.navitem .ico{font-size:15px;width:auto}.main{padding:22px 14px 45px}.hero{align-items:flex-start;flex-direction:column}.video-grid{gap:20px 11px}.thumb{border-radius:11px}.card-row{gap:8px;padding-top:9px}.avatar{width:30px;height:30px;flex-basis:30px;font-size:12px}.video-info h3{font-size:12px}.video-info p{font-size:10px}.more{display:none}.watch-layout{display:block}.watch-side{margin-top:18px}.settings{grid-template-columns:1fr}.userbtn{font-size:12px;padding:9px}.watch-title{font-size:19px}}
+@media(max-width:430px){.video-grid{grid-template-columns:1fr}.video-card{display:grid;grid-template-columns:43% minmax(0,1fr);gap:10px;align-items:start}.thumb{grid-row:1;aspect-ratio:4/3}.card-row{padding:0}.card-row .avatar{display:none}.video-info h3{font-size:13px}.video-info p{font-size:11px}.card-row .more{display:none}.duration{font-size:9px;right:5px;bottom:5px}}
+
+/* Refined controls and calmer spacing */
+:root{--accent:#f04455;--accent2:#ff6675;--radius:16px}
+body{letter-spacing:-.12px}
+.topbar{height:70px;padding-inline:clamp(14px,2.4vw,34px);gap:18px}
+.brand{font-size:20px;letter-spacing:-.9px}.logo{width:33px;height:25px;border-radius:8px}
+.search input{border-radius:999px;padding:12px 18px;background:var(--panel);border-color:transparent;transition:border-color .18s,box-shadow .18s}
+.search input:focus{border-color:var(--accent);box-shadow:0 0 0 3px #f044551b}
+.search button,.primary{border-radius:999px;padding:11px 18px;box-shadow:none;transition:background .18s,transform .18s}
+.search button:hover,.primary:hover{transform:translateY(-1px)}
+.iconbtn,.secondary{border-radius:999px;padding:9px 14px;transition:background .18s,border-color .18s}
+.sidebar{padding-top:20px}.navitem{border-radius:10px;padding:10px 12px}.navitem.active{box-shadow:inset 2px 0 var(--accent);background:color-mix(in srgb,var(--accent) 10%,var(--panel))}
+.main{padding-top:30px}.hero h1{font-size:clamp(28px,2.7vw,36px);letter-spacing:-1.5px}.hero p{font-size:14px;line-height:1.65}
+.chip{padding:8px 14px;border-color:transparent;background:var(--panel);transition:all .15s}.chip.active{background:var(--text);color:var(--bg);border-color:var(--text)}
+.video-grid{gap:26px 20px}.thumb{border:0;border-radius:13px;background:var(--panel2)}.card-row{gap:10px}.avatar{width:35px;height:35px;flex-basis:35px}.video-info h3{font-size:13.5px;letter-spacing:-.2px}.video-info p{line-height:1.45}
+.section-head{margin-top:25px}.setting-card{border-radius:18px;padding:21px;border-color:var(--line);box-shadow:0 3px 16px #00000008}.setting-card h3{font-size:16px;letter-spacing:-.3px}.setting-card p{line-height:1.6}.setting-card input[type=text],.setting-card input[type=password],.setting-card select{border-radius:11px;padding:12px 13px;outline:none;transition:border-color .15s,box-shadow .15s}.setting-card input[type=text]:focus,.setting-card input[type=password]:focus,.setting-card select:focus{border-color:var(--accent);box-shadow:0 0 0 3px #f0445518}
+/* Modern pill switches, replacing the browser-default checkboxes */
+.toggle-row{padding:14px 0;min-height:51px;gap:18px}.toggle-row span{color:var(--text);font-size:13px;line-height:1.45}.toggle-row input[type=checkbox]{appearance:none;-webkit-appearance:none;position:relative;flex:0 0 42px;width:42px;height:25px;margin:0;border:1px solid #5a5f6b;border-radius:999px;background:#343843;cursor:pointer;transition:background .2s,border-color .2s,box-shadow .2s;outline:none}.toggle-row input[type=checkbox]::before{content:"";position:absolute;width:17px;height:17px;left:3px;top:3px;border-radius:50%;background:#f5f6f8;box-shadow:0 1px 3px #0004;transition:transform .2s cubic-bezier(.2,.8,.2,1),background .2s}.toggle-row input[type=checkbox]:checked{background:var(--accent);border-color:var(--accent)}.toggle-row input[type=checkbox]:checked::before{transform:translateX(17px);background:white}.toggle-row input[type=checkbox]:focus-visible{box-shadow:0 0 0 4px #f0445530}.toggle-row input[type=checkbox]:disabled{opacity:.55;cursor:not-allowed}
+.notice{border-radius:12px;line-height:1.6;padding:13px 14px}.watch-side{border-radius:16px}.player{border-radius:15px}.watch-actions .secondary{font-size:13px}
+@media(max-width:760px){.topbar{min-height:65px}.sidebar{top:108px}.main{padding-top:23px}.video-grid{gap:20px 12px}.setting-card{padding:17px}}
+
+
+/* Premium sticky search + category rail */
+.header-stack{position:sticky;top:0;z-index:30;background:rgba(13,14,18,.88);backdrop-filter:blur(24px) saturate(160%);-webkit-backdrop-filter:blur(24px) saturate(160%);border-bottom:1px solid #ffffff0d;box-shadow:0 12px 34px #00000014}
+.topbar{position:relative;top:auto;border-bottom:0;background:transparent;backdrop-filter:none;-webkit-backdrop-filter:none}
+.category-dock{border-top:1px solid #ffffff08;padding:0 clamp(14px,2.4vw,34px) 10px  }
+.category-inner{max-width:100%;display:flex;align-items:center;gap:6px;overflow-x:auto;scrollbar-width:none;padding:7px 0 0}
+.category-inner::-webkit-scrollbar{display:none}
+.category-inner .chip{flex:0 0 auto;padding:6px 11px;font-size:11px;font-weight:650;letter-spacing:.1px;border-radius:9px;background:transparent;border:1px solid transparent;color:var(--muted);line-height:1.2;transition:color .18s,background .18s,border-color .18s,transform .18s}
+.category-inner .chip:hover{background:var(--panel2);color:var(--text);border-color:var(--line);transform:translateY(-1px)}
+.category-inner .chip.active{background:linear-gradient(135deg,#ff6573,#e93d53);border-color:#ff7a87;color:white;box-shadow:0 3px 12px #f0445533}
+.dock-hidden{display:none!important}.category-dock.filters-off{display:none!important}
+.light .header-stack{background:rgba(248,249,252,.9);border-bottom-color:#1719200d;box-shadow:0 12px 34px #1c23400a}
+.light .category-dock{border-top-color:#1719200c}
+.light .category-inner .chip.active{background:linear-gradient(135deg,#ff6573,#e93d53);color:white;border-color:#ff7a87}
+/* Extra-polished toggle controls: luminous track, inset groove, glassy thumb */
+.toggle-row input[type=checkbox]{appearance:none;-webkit-appearance:none;position:relative;isolation:isolate;flex:0 0 48px;width:48px;height:28px;margin:0;padding:0;border:1px solid #555b69;border-radius:999px;background:linear-gradient(145deg,#30343e,#20232b);cursor:pointer;box-shadow:inset 0 2px 4px #0006,0 1px 0 #ffffff08;transition:background .28s,border-color .28s,box-shadow .28s;outline:none}
+.toggle-row input[type=checkbox]::before{content:"";position:absolute;z-index:1;left:3px;top:3px;width:20px;height:20px;border-radius:50%;background:linear-gradient(145deg,#fff,#d9dce4);box-shadow:0 2px 5px #0005,inset 0 1px 1px #fff;transition:transform .28s cubic-bezier(.2,.9,.25,1.25),background .2s,box-shadow .2s}
+.toggle-row input[type=checkbox]::after{content:"";position:absolute;left:8px;top:8px;width:10px;height:10px;border-radius:50%;background:#777e8c;opacity:.65;transition:transform .28s,opacity .2s,background .2s}
+.toggle-row input[type=checkbox]:checked{background:linear-gradient(135deg,#ff7580,#e52f4b);border-color:#ff7b89;box-shadow:inset 0 1px 3px #9e17344d,0 0 0 3px #f0445510,0 4px 14px #f0445520}
+.toggle-row input[type=checkbox]:checked::before{transform:translateX(20px);background:linear-gradient(145deg,#fff,#fff0f1);box-shadow:0 2px 7px #8e152c55,inset 0 1px 1px #fff}
+.toggle-row input[type=checkbox]:checked::after{transform:translateX(20px);background:#ff4d5d;opacity:.9}
+.toggle-row input[type=checkbox]:focus-visible{box-shadow:0 0 0 4px #f0445540,0 4px 14px #f0445520}
+.toggle-row input[type=checkbox]:hover:not(:disabled){border-color:var(--accent2);filter:brightness(1.08)}
+.toggle-row input[type=checkbox]:disabled{opacity:.45;cursor:not-allowed;filter:grayscale(.4)}
+/* If a range slider is added later, keep it in the same design system */
+input[type=range]{appearance:none;-webkit-appearance:none;width:100%;height:6px;border-radius:999px;background:linear-gradient(90deg,#ff6573,#e93d53 50%,var(--panel2) 50%);outline:none;cursor:pointer}
+input[type=range]::-webkit-slider-thumb{appearance:none;-webkit-appearance:none;width:19px;height:19px;border-radius:50%;background:linear-gradient(145deg,#fff,#ffe1e5);border:3px solid #f04455;box-shadow:0 2px 10px #f0445540;transition:transform .18s}
+input[type=range]::-webkit-slider-thumb:hover{transform:scale(1.12)}
+input[type=range]::-moz-range-thumb{width:14px;height:14px;border-radius:50%;background:#fff;border:3px solid #f04455;box-shadow:0 2px 10px #f0445540}
+@media(max-width:760px){.topbar{min-height:0;height:auto;padding:10px 12px;gap:10px}.header-stack .search{order:3;flex-basis:100%;max-width:none;margin:0}.header-stack .brand{font-size:17px}.header-stack .logo{width:29px;height:22px}.header-stack .top-actions{gap:5px}.header-stack .top-actions .iconbtn,.header-stack .top-actions .secondary{padding:8px 10px;font-size:11px}.category-dock{padding:0 12px 8px}.category-inner{gap:4px;padding-top:5px}.category-inner .chip{padding:6px 9px;font-size:10px}.sidebar{top:132px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{transition-duration:.01ms!important;scroll-behavior:auto!important}}
+
+
+/* Larger premium treatment for the active For you item */
+.sidebar .navitem[data-page="home"] {
+  min-height: 48px;
+  padding: 14px 15px;
+  font-size: 15px;
+  font-weight: 750;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: linear-gradient(135deg, color-mix(in srgb, var(--accent) 16%, var(--panel2)), var(--panel2));
+  box-shadow: 0 5px 16px #0002, inset 0 1px 0 #ffffff0a;
+  transition: background .18s, border-color .18s, transform .18s, box-shadow .18s;
+}
+.sidebar .navitem[data-page="home"] .ico { font-size: 20px; }
+.sidebar .navitem[data-page="home"].active {
+  color: var(--text);
+  border-color: color-mix(in srgb, var(--accent) 55%, var(--line));
+  background: linear-gradient(135deg, color-mix(in srgb, var(--accent) 23%, var(--panel2)), var(--panel2));
+  box-shadow: inset 3px 0 var(--accent), 0 5px 18px #f0445517;
+}
+.sidebar .navitem[data-page="home"]:hover {
+  border-color: var(--accent);
+  transform: translateY(-1px);
+}
+@media(max-width:760px) {
+  .sidebar .navitem[data-page="home"] {
+    min-height: 40px;
+    padding: 10px 13px;
+    font-size: 13px;
+  }
+}
+
+
+/* ClearTube range controls: matching accent, high-contrast thumb, touch-friendly hit area */
+:root{--custom-glow:.35;--glow-shadow:0 0 10px #f0445533}
+.iconbtn:hover,.secondary:hover,.navitem.active{box-shadow:0 0 calc(12px * var(--custom-glow)) color-mix(in srgb,var(--accent) 25%,transparent)}
+.range-setting{margin-top:18px;padding:14px 14px 12px;border:1px solid var(--line);border-radius:14px;background:linear-gradient(145deg,color-mix(in srgb,var(--accent) 6%,var(--panel)),var(--panel))}
+.range-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}
+.range-heading label{margin:0!important;color:var(--text)!important;font-weight:750;font-size:13px!important}
+.range-heading output{display:inline-flex;align-items:center;justify-content:center;min-width:55px;padding:5px 9px;border-radius:999px;background:color-mix(in srgb,var(--accent) 15%,var(--panel2));border:1px solid color-mix(in srgb,var(--accent) 32%,var(--line));color:var(--accent2);font-size:12px;font-weight:800;font-variant-numeric:tabular-nums}
+input[type=range]{display:block;appearance:none;-webkit-appearance:none;width:100%;height:8px;margin:12px 0 10px;border-radius:999px;background:linear-gradient(90deg,var(--accent),var(--accent2));outline:none;cursor:pointer;touch-action:pan-y}
+input[type=range]::-webkit-slider-runnable-track{height:8px;border-radius:999px;background:linear-gradient(90deg,color-mix(in srgb,var(--accent) 90%,#fff),var(--accent2))}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:24px;height:24px;margin-top:-8px;border-radius:50%;border:3px solid #fff;background:linear-gradient(145deg,#fff,#ffdce1);box-shadow:0 0 0 3px var(--accent),0 3px 12px #0007;transition:transform .15s,box-shadow .15s}
+input[type=range]:hover::-webkit-slider-thumb{transform:scale(1.08);box-shadow:0 0 0 4px var(--accent),0 4px 16px #0008}
+input[type=range]::-moz-range-track{height:8px;border-radius:999px;background:linear-gradient(90deg,var(--accent),var(--accent2))}
+input[type=range]::-moz-range-progress{height:8px;border-radius:999px;background:var(--accent)}
+input[type=range]::-moz-range-thumb{width:18px;height:18px;border-radius:50%;border:3px solid #fff;background:linear-gradient(145deg,#fff,#ffdce1);box-shadow:0 0 0 3px var(--accent),0 3px 12px #0007}
+input[type=range]:focus-visible{outline:3px solid color-mix(in srgb,var(--accent) 45%,transparent);outline-offset:7px}
+.range-help{font-size:11px!important;color:var(--muted)!important;margin:8px 0 0!important}
+.setting-card input[type=text],.setting-card input[type=password],.setting-card select{min-height:44px}
+button,.navitem,.chip{touch-action:manipulation}
+.video-grid{min-width:0}
+.video-card img{max-width:100%}
+@media(max-width:760px){
+  .topbar{position:sticky;top:0;z-index:20}
+  .header-stack .top-actions{margin-left:auto;flex-shrink:0}
+  .header-stack .top-actions .userbtn{max-width:138px;overflow:hidden;text-overflow:ellipsis}
+  .category-dock{position:sticky;top:110px;z-index:9;background:var(--bg)}
+  .category-inner{overflow-x:auto;scrollbar-width:none}
+  .category-inner::-webkit-scrollbar,.sidebar::-webkit-scrollbar{display:none}
+  .category-inner .chip{flex:0 0 auto;min-height:34px}
+  .sidebar{scrollbar-width:none;overscroll-behavior-x:contain}
+  .main{padding-left:12px;padding-right:12px}
+  .settings{grid-template-columns:minmax(0,1fr);gap:12px}
+  .setting-card{min-width:0;padding:16px;border-radius:15px}
+  .setting-card input[type=text],.setting-card input[type=password],.setting-card select{font-size:16px}
+  .range-setting{padding:13px 12px}
+  input[type=range]{height:12px;padding:0;margin:14px 0;touch-action:pan-y}
+  input[type=range]::-webkit-slider-runnable-track{height:8px}
+  input[type=range]::-webkit-slider-thumb{width:27px;height:27px;margin-top:-9.5px}
+  input[type=range]::-moz-range-thumb{width:21px;height:21px}
+  .watch-actions button,.primary,.secondary{min-height:42px}
+  .watch-title{overflow-wrap:anywhere}
+  .notice{overflow-wrap:anywhere}
+}
+@media(max-width:430px){
+  .header-stack .brand{font-size:16px}
+  .header-stack .logo{width:27px;height:21px}
+  .header-stack .top-actions .iconbtn,.header-stack .top-actions .secondary{padding:8px 9px}
+  .search input{min-width:0;padding:11px 14px}
+  .search button{padding:0 14px}
+  .category-inner .chip{padding:7px 11px;font-size:11px}
+  .hero h1{font-size:27px}
+  .video-card{grid-template-columns:42% minmax(0,1fr)}
+  .video-info h3{overflow-wrap:anywhere}
+  .setting-card .notice{padding:11px}
+  .toast{width:calc(100% - 28px);text-align:center;bottom:12px}
+}
+
+
+/* Watch action buttons remain usable on narrow phone screens */
+@media(max-width:760px){
+ .watch-actions{gap:8px}
+ .watch-actions button{min-height:42px;flex:1 1 auto}
+ .sidebar-note{display:none}
+}
+@media(max-width:430px){
+ .watch-actions button{font-size:12px;padding:10px 11px}
+}
+
+</style>
+</head>
+<body>
+<div class="app">
+<div class="header-stack">
+<header class="topbar">
+  <a class="brand" href="#" id="homeBrand"><span class="logo"></span>Clear<span>Tube</span></a>
+  <form class="search" id="searchForm"><input id="searchInput" placeholder="Search videos, channels, topics…" autocomplete="off" aria-label="Search videos"><button type="submit">Search</button></form>
+  <div class="top-actions"><button class="iconbtn" id="themeBtn" title="Toggle light/dark theme">◐</button><button class="secondary userbtn" id="signInBtn">Sign in with Google</button></div>
+</header>
+<div class="category-dock" id="categoryDock"><div class="category-inner" id="headerChips"></div></div>
+</div>
+<div class="layout">
+<aside class="sidebar">
+  <div class="navgroup">
+    <div class="navlabel">Discover</div>
+    <button class="navitem active" data-page="home"><span class="ico">⌂</span>For you</button>
+    <button class="navitem" data-page="recent"><span class="ico">◷</span>Recently watched</button>
+    <button class="navitem" data-page="saved"><span class="ico">▱</span>Watch later</button>
+    <button class="navitem" data-page="liked"><span class="ico">♡</span>Liked videos</button>
+  </div>
+  <div class="navgroup">
+    <div class="navlabel">Your space</div>
+    <button class="navitem" data-page="history"><span class="ico">↺</span>Watch history</button>
+    <button class="navitem" data-page="settings"><span class="ico">⚙</span>Customize</button>
+  </div>
+</aside>
+<main class="main" id="main"></main>
+</div>
+</div>
+<div id="toast" class="toast hidden" role="status"></div>
+<script>
+/* ClearTube starter app.
+   For live YouTube search: add a YouTube Data API v3 key in Customize.
+   For Google sign-in: configure a Google OAuth web client ID in Customize.
+   Static HTML cannot access a user's YouTube account history or private recommendations without authorized APIs. */
+const $=s=>document.querySelector(s);
+const state={page:'home',query:'',category:'All',videos:[],current:null,apiKey:localStorage.getItem('ct_apiKey')||'',clientId:localStorage.getItem('ct_clientId')||'',signedIn:false};
+const demoVideos=[
+{id:'jfKfPfyJRdk',title:'lofi hip hop radio 📚 beats to relax / study to',channel:'Lofi Girl',views:'Live',age:'Live stream',duration:'LIVE',category:'Music',desc:'A calm place to focus, read, or unwind.'},
+{id:'aqz-KE-bpKQ',title:'Big Buck Bunny — animated short film',channel:'Blender Studio',views:'12M views',age:'2 years ago',duration:'9:56',category:'Animation',desc:'An open animated short from Blender Studio.'},
+{id:'ScMzIvxBSi4',title:'A relaxing video to put on in the background',channel:'Ambient Worlds',views:'840K views',age:'8 months ago',duration:'12:42',category:'Relaxing',desc:'A low-key background video.'},
+{id:'ysz5S6PUM-U',title:'Creative coding: build something from scratch',channel:'Creative Lab',views:'2.1M views',age:'1 year ago',duration:'18:20',category:'Learning',desc:'An example video for your personal feed.'},
+{id:'M7lc1UVf-VE',title:'YouTube player basics explained',channel:'Developer Desk',views:'390K views',age:'3 years ago',duration:'6:14',category:'Technology',desc:'A developer-oriented demo video.'},
+{id:'kJQP7kiw5Fk',title:'Music for a good mood',channel:'Music Mix',views:'5.7M views',age:'6 months ago',duration:'3:48',category:'Music',desc:'A music video example.'},
+{id:'LXb3EKWsInQ',title:'Nature scenes in 4K — oceans and mountains',channel:'Nature Focus',views:'2.4M views',age:'10 months ago',duration:'4:02',category:'Relaxing',desc:'Nature footage for a quiet break.'},
+{id:'dQw4w9WgXcQ',title:'A classic music video',channel:'Music Archive',views:'1B views',age:'15 years ago',duration:'3:33',category:'Music',desc:'A popular music video.'},
+{id:'C0DPdy98e4c',title:'Make a simple animation',channel:'Creative Lab',views:'780K views',age:'9 months ago',duration:'11:06',category:'Learning',desc:'A short creative tutorial.'}
+];
+function getList(key){try{return JSON.parse(localStorage.getItem('ct_'+key)||'[]')}catch{return []}}
+function setList(key,v){localStorage.setItem('ct_'+key,JSON.stringify(v))}
+function toast(msg){const t=$('#toast');t.textContent=msg;t.classList.remove('hidden');setTimeout(()=>t.classList.add('hidden'),2800)}
+function thumb(v){return `https://i.ytimg.com/vi/${v.id}/hqdefault.jpg`}
+function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function card(v){return `<article class="video-card" data-watch="${esc(v.id)}"><div class="thumb"><img loading="lazy" src="${thumb(v)}" alt=""><span class="duration">${esc(v.duration||'YouTube')}</span></div><div class="card-row"><div class="avatar">${esc((v.channel||'Y').slice(0,1).toUpperCase())}</div><div class="video-info"><h3>${esc(v.title)}</h3><p>${esc(v.channel||'YouTube')}</p><p>${esc(v.views||'')} · ${esc(v.age||'')}</p></div><button class="more" data-more="${esc(v.id)}" title="Video options">⋯</button></div></article>`}
+function grid(videos,empty='Nothing here yet.'){return `<div class="video-grid">${videos.length?videos.map(card).join(''):`<div class="empty">${empty}</div>`}</div>`}
+function categories(){return ['All','Music','Technology','Learning','Relaxing','Animation','Gaming','News','Science'].map(c=>`<button class="chip ${state.category===c?'active':''}" data-category="${c}">${c}</button>`).join('')}
+function render(){
+  document.querySelectorAll('.navitem').forEach(b=>b.classList.toggle('active',b.dataset.page===state.page));
+  const main=$('#main');let content='';
+  const dock=$('#categoryDock');dock.classList.toggle('dock-hidden',!(state.page==='home'));$('#headerChips').innerHTML=categories();
+  if(state.page==='settings'){main.innerHTML=settingsHTML();applyRangeSettings();return}
+  if(state.page==='watch'&&state.current){const v=state.current;const recent=getList('recent');const suggestions=state.videos.filter(x=>x.id!==v.id).slice(0,5);main.innerHTML=`<div class="watch-layout"><section><div class="player"><iframe src="https://www.youtube-nocookie.com/embed/${encodeURIComponent(v.id)}?autoplay=0&rel=0" title="${esc(v.title)}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe></div><h1 class="watch-title">${esc(v.title)}</h1><div class="watch-meta">${esc(v.channel||'YouTube')} · ${esc(v.views||'')} · ${esc(v.age||'')}</div><div class="watch-actions"><button class="secondary" data-action="like" data-id="${esc(v.id)}">♡ Like</button><button class="secondary" data-action="save" data-id="${esc(v.id)}">＋ Watch later</button><button class="secondary" data-action="copy" data-id="${esc(v.id)}">↗ Copy video link</button><button class="secondary" data-action="download" data-id="${esc(v.id)}">↓ Download MP4</button><button class="secondary" data-action="back">← Back to videos</button></div><p style="color:var(--muted);font-size:13px">${esc(v.desc||'')}</p><div class="notice">Videos play using YouTube's official embedded player. Ads, playback rules, and some features are controlled by YouTube.</div></section><aside class="watch-side"><h3>Up next · based on this session</h3>${suggestions.map(x=>`<div class="mini-video" data-watch="${esc(x.id)}"><img src="${thumb(x)}" alt=""><div><b>${esc(x.title)}</b><small>${esc(x.channel||'YouTube')}</small></div></div>`).join('')||'Search to find more videos'}</aside></div>`;return}
+  let videos=state.videos;
+  if(state.page==='recent'){videos=getList('recent');content=`<div class="hero"><div><div class="eyebrow">Pick up where you left off</div><h1>Recently watched</h1><p>Your recent videos on this device, newest first.</p></div><button class="secondary" data-action="clear-recent">Clear history</button></div>${grid(videos,'Videos you watch here will show up in this section.')}`}
+  else if(state.page==='saved'){videos=getList('saved');content=`<div class="hero"><div><div class="eyebrow">Keep for later</div><h1>Watch later</h1><p>A personal queue for videos you want to come back to.</p></div></div>${grid(videos,'Save videos with the Watch later button.')}`}
+  else if(state.page==='liked'){videos=getList('liked');content=`<div class="hero"><div><div class="eyebrow">Your favorites</div><h1>Liked videos</h1><p>Videos you have liked in ClearTube.</p></div></div>${grid(videos,'Like a video to see it here.')}`}
+  else if(state.page==='history'){videos=getList('recent');content=`<div class="hero"><div><div class="eyebrow">Your activity</div><h1>Watch history</h1><p>History is stored locally in this browser, not synced to YouTube.</p></div><button class="secondary" data-action="clear-recent">Clear history</button></div>${grid(videos,'Your ClearTube viewing history will appear here.')}`}
+  else {let shown=videos;if(state.category!=='All')shown=shown.filter(v=>(v.category||'').toLowerCase()===state.category.toLowerCase());content=`${!state.query?`<div class="section-head"><div><h2>Picked for your vibe</h2><p>Starter feed · use search for live YouTube results</p></div></div>`:`<div class="section-head"><div><h2>Search results</h2><p>${shown.length} videos</p></div></div>`}${grid(shown,'No videos match this filter. Try another category or search.')}`}
+  main.innerHTML=content;
+}
+function settingsHTML(){return `<div class="hero"><div><div class="eyebrow">Make it yours</div><h1>Customize ClearTube</h1><p>Set up live search, choose your look, and decide how your home feed behaves.</p></div></div><div class="settings">
+<div class="setting-card"><h3>Appearance</h3><p>Choose a visual style that feels comfortable.</p><label for="themeSelect">Theme</label><select id="themeSelect"><option value="dark">Midnight dark</option><option value="light">Clean light</option></select><label for="densitySelect">Video layout</label><select id="densitySelect"><option value="comfortable">Comfortable</option><option value="compact">Compact</option></select><div class="toggle-row"><span>Show category filters</span><input type="checkbox" id="showFilters" checked></div><div class="toggle-row"><span>Reduce motion</span><input type="checkbox" id="reduceMotion"></div>
+<div class="range-setting"><div class="range-heading"><label for="glowRange">Accent glow</label><output id="glowValue">35%</output></div><input type="range" id="glowRange" min="0" max="100" value="35" aria-label="Accent glow intensity"><p class="range-help">Control how much glow appears around highlighted controls.</p></div>
+<div class="range-setting"><div class="range-heading"><label for="roundRange">Corner roundness</label><output id="roundValue">16 px</output></div><input type="range" id="roundRange" min="8" max="26" value="16" aria-label="Card corner roundness"><p class="range-help">Adjust the roundness of video cards and panels.</p></div>
+</div>
+<div class="setting-card"><h3>YouTube search</h3><p>Connect the official YouTube Data API to search real videos. The API key is saved only in this browser.</p><label for="apiKey">YouTube Data API v3 key</label><input id="apiKey" type="password" placeholder="Paste your API key" value="${esc(state.apiKey)}" autocomplete="off"><button class="primary" style="margin-top:12px" id="saveApi">Save API key</button><div class="notice"><b>Setup:</b> In Google Cloud Console, create a project, enable “YouTube Data API v3,” and create an API key. Restrict it to your GitHub Pages domain. Never put private server credentials in this file.</div></div>
+<div class="setting-card"><h3>Google sign-in</h3><p>Sign-in requires a Google OAuth web client ID and an authorized origin. This starter does not request your password.</p><label for="clientId">Google OAuth Client ID</label><input id="clientId" type="text" placeholder="1234567890-abc.apps.googleusercontent.com" value="${esc(state.clientId)}" autocomplete="off"><button class="primary" style="margin-top:12px" id="saveClient">Save client ID</button><div class="notice"><b>Important:</b> Sign-in alone does not grant YouTube history access. Private account data needs a separately configured OAuth flow and the correct YouTube API scopes. This page does not read your Google password or claim to sync your YouTube account.</div></div>
+<div class="setting-card"><h3>Recommendations</h3><p>Choose how the home feed is shaped. ClearTube's starter recommendations are simple and transparent.</p><div class="toggle-row"><span>Hide autoplay (player default)</span><input type="checkbox" checked disabled></div><div class="toggle-row"><span>Use my ClearTube watch history for local suggestions</span><input type="checkbox" id="localRecs" checked></div><div class="toggle-row"><span>Show demo feed when search is empty</span><input type="checkbox" id="demoFeed" checked></div><button class="secondary" id="clearAll" style="margin-top:13px">Clear local data</button></div>
+<div class="setting-card"><h3>Data & privacy</h3><p>Your preferences, saved list, liked list, and ClearTube viewing history use this browser's local storage.</p><p>Embedded videos are served by YouTube. Searching through the API sends search terms to Google. GitHub Pages is static hosting, so account-linked features need careful OAuth setup.</p><button class="secondary" id="exportData">Export my local data</button></div>
+</div><div class="footer">ClearTube is an independent interface concept, not affiliated with YouTube or Google. YouTube is a trademark of Google LLC.</div>`}
+async function searchYouTube(q){if(!state.apiKey){state.query=q;state.page='home';render();toast('Add a YouTube API key in Customize to search live YouTube videos.');return}try{const url=new URL('https://www.googleapis.com/youtube/v3/search');url.search=new URLSearchParams({part:'snippet',type:'video',maxResults:'24',q,key:state.apiKey,safeSearch:'moderate'}).toString();const res=await fetch(url);const data=await res.json();if(!res.ok)throw new Error(data.error?.message||'Search failed');state.videos=(data.items||[]).map(x=>({id:x.id.videoId,title:x.snippet.title,channel:x.snippet.channelTitle,views:'YouTube result',age:new Date(x.snippet.publishedAt).toLocaleDateString(),duration:'YouTube',category:'Search',desc:x.snippet.description}));state.query=q;state.category='All';state.page='home';render();if(!state.videos.length)toast('No results found.')}catch(e){toast('YouTube search error: '+e.message)}}
+function openVideo(id){let v=state.videos.find(x=>x.id===id)||demoVideos.find(x=>x.id===id)||getList('recent').find(x=>x.id===id)||getList('saved').find(x=>x.id===id)||getList('liked').find(x=>x.id===id);if(!v)return;state.current=v;state.page='watch';const recent=getList('recent').filter(x=>x.id!==id);setList('recent',[v,...recent].slice(0,60));render()}
+document.addEventListener('click',e=>{
+ const page=e.target.closest('[data-page]');if(page){state.page=page.dataset.page;render();return}
+ const cat=e.target.closest('[data-category]');if(cat){state.category=cat.dataset.category;render();return}
+ const watch=e.target.closest('[data-watch]');if(watch){openVideo(watch.dataset.watch);return}
+ const more=e.target.closest('[data-more]');if(more){e.stopPropagation();const id=more.dataset.more;const v=state.videos.find(x=>x.id===id);if(v){const saved=getList('saved');setList('saved',saved.some(x=>x.id===id)?saved.filter(x=>x.id!==id):[v,...saved]);toast(saved.some(x=>x.id===id)?'Removed from Watch later':'Added to Watch later')}return}
+ const act=e.target.closest('[data-action]');if(act){const action=act.dataset.action,id=act.dataset.id,v=state.current||state.videos.find(x=>x.id===id);if(action==='back'){state.page='home';render()}if(action==='like'&&v){let a=getList('liked');setList('liked',a.some(x=>x.id===id)?a.filter(x=>x.id!==id):[v,...a]);toast('Liked videos updated')}if(action==='save'&&v){let a=getList('saved');setList('saved',a.some(x=>x.id===id)?a.filter(x=>x.id!==id):[v,...a]);toast('Watch later updated')}if(action==='copy'&&v){navigator.clipboard?.writeText('https://www.youtube.com/watch?v='+id);toast('YouTube link copied if clipboard access is allowed')}if(action==='download'&&v){
+ const url=v.downloadUrl||v.mp4Url||'';
+ if(url){
+   try{
+     const parsed=new URL(url,location.href);
+     if(parsed.protocol!=='https:'&&parsed.protocol!=='http:')throw new Error('Invalid URL');
+     const a=document.createElement('a');a.href=parsed.href;a.download=(String(v.title||'video').replace(/[^a-z0-9-_ ]/gi,'').trim()||'video')+'.mp4';a.rel='noopener';document.body.appendChild(a);a.click();a.remove();
+     toast('Download started, if the source permits it');
+   }catch(err){toast('This download link is not valid')}
+ }else{
+   toast('YouTube embeds do not provide direct MP4 downloads. Use an official download option or a file you have permission to download.');
+ }
+}if(action==='clear-recent'){setList('recent',[]);render();toast('Local watch history cleared')}return}
+});
+$('#searchForm').addEventListener('submit',e=>{e.preventDefault();const q=$('#searchInput').value.trim();if(q)searchYouTube(q)});
+$('#homeBrand').addEventListener('click',e=>{e.preventDefault();state.page='home';state.query='';state.category='All';state.videos=demoVideos.slice();render()});
+$('#themeBtn').addEventListener('click',()=>{document.body.classList.toggle('light');localStorage.setItem('ct_theme',document.body.classList.contains('light')?'light':'dark')});
+function beginGoogleSignIn(){
+  if(!state.clientId){state.page='settings';render();toast('Add your Google OAuth Client ID in Customize first.');return}
+  if(!window.google?.accounts?.id){
+    if(!document.getElementById('google-gsi-script')){const script=document.createElement('script');script.id='google-gsi-script';script.src='https://accounts.google.com/gsi/client';script.async=true;script.onload=beginGoogleSignIn;script.onerror=()=>toast('Google sign-in library could not load.');document.head.appendChild(script)}
+    return;
+  }
+  google.accounts.id.initialize({client_id:state.clientId,callback:credentialResponse=>{
+    try{const payload=JSON.parse(atob(credentialResponse.credential.split('.')[1].replace(/-/g,'+').replace(/_/g,'/')));state.signedIn=true;$('#signInBtn').textContent=payload.name||'Google account';localStorage.setItem('ct_googleName',payload.name||'Google account');localStorage.setItem('ct_googleEmail',payload.email||'');toast('Signed in as '+(payload.name||'Google account')+'. YouTube watch history is not available through this sign-in alone.')}catch{toast('Google responded, but profile details could not be read.')}}});
+  google.accounts.id.prompt();
+}
+$('#signInBtn').addEventListener('click',beginGoogleSignIn);
+const savedGoogleName=localStorage.getItem('ct_googleName');if(savedGoogleName){$('#signInBtn').textContent=savedGoogleName;state.signedIn=true;}
+document.addEventListener('click',e=>{
+ if(e.target.id==='saveApi'){state.apiKey=$('#apiKey').value.trim();localStorage.setItem('ct_apiKey',state.apiKey);toast(state.apiKey?'API key saved in this browser.':'API key cleared.')}
+ if(e.target.id==='saveClient'){state.clientId=$('#clientId').value.trim();localStorage.setItem('ct_clientId',state.clientId);toast('Client ID saved. Complete OAuth configuration before enabling sign-in.')}
+ if(e.target.id==='clearAll'&&confirm('Clear ClearTube history, saved videos, likes, and preferences?')){['recent','saved','liked'].forEach(k=>localStorage.removeItem('ct_'+k));localStorage.removeItem('ct_apiKey');localStorage.removeItem('ct_clientId');state.apiKey='';state.clientId='';toast('Local ClearTube data cleared.');render()}
+ if(e.target.id==='exportData'){const data={recent:getList('recent'),saved:getList('saved'),liked:getList('liked'),theme:localStorage.getItem('ct_theme')||'dark'};const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='cleartube-data.json';a.click();URL.revokeObjectURL(a.href)}
+});
+function applyRangeSettings(){
+ const glow=Number(localStorage.getItem('ct_glow')||35);
+ const round=Number(localStorage.getItem('ct_roundness')||16);
+ document.documentElement.style.setProperty('--custom-glow',`${glow/100}`);
+ document.documentElement.style.setProperty('--radius',`${round}px`);
+ const g=$('#glowRange'),r=$('#roundRange'),go=$('#glowValue'),ro=$('#roundValue');
+ if(g&&go){g.value=glow;go.value=`${glow}%`;go.textContent=`${glow}%`}
+ if(r&&ro){r.value=round;ro.value=`${round} px`;ro.textContent=`${round} px`}
+}
+document.addEventListener('input',e=>{
+ if(e.target.id==='glowRange'){
+   const v=Number(e.target.value);localStorage.setItem('ct_glow',String(v));
+   document.documentElement.style.setProperty('--custom-glow',`${v/100}`);
+   const o=$('#glowValue');if(o){o.value=`${v}%`;o.textContent=`${v}%`}
+   document.documentElement.style.setProperty('--glow-shadow',`0 0 ${Math.round(v/4)}px color-mix(in srgb,var(--accent) ${v}%,transparent)`);
+ }
+ if(e.target.id==='roundRange'){
+   const v=Number(e.target.value);localStorage.setItem('ct_roundness',String(v));
+   document.documentElement.style.setProperty('--radius',`${v}px`);
+   document.querySelectorAll('.thumb,.setting-card,.watch-side,.player,.range-setting').forEach(el=>el.style.borderRadius=`${v}px`);
+   const o=$('#roundValue');if(o){o.value=`${v} px`;o.textContent=`${v} px`}
+ }
+});
+document.addEventListener('change',e=>{
+ if(e.target.id==='themeSelect'){document.body.classList.toggle('light',e.target.value==='light');localStorage.setItem('ct_theme',e.target.value)}
+ if(e.target.id==='densitySelect'){document.querySelectorAll('.video-grid').forEach(g=>g.style.gap=e.target.value==='compact'?'14px 10px':'25px 18px');localStorage.setItem('ct_density',e.target.value)}
+ if(e.target.id==='showFilters'){document.querySelectorAll('.chips').forEach(x=>x.classList.toggle('hidden',!e.target.checked));$('#categoryDock').classList.toggle('filters-off',!e.target.checked);localStorage.setItem('ct_showFilters',e.target.checked?'1':'0')}
+ if(e.target.id==='reduceMotion'){document.body.style.setProperty('--motion',e.target.checked?'0':'1');document.querySelectorAll('*').forEach(x=>x.style.transitionDuration=e.target.checked?'0s':'');localStorage.setItem('ct_reduceMotion',e.target.checked?'1':'0')}
+});
+state.videos=demoVideos.slice();
+if(localStorage.getItem('ct_theme')==='light')document.body.classList.add('light');
+applyRangeSettings();
+render();
+</script>
+</body>
+</html>
