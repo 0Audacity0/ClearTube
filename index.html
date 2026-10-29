@@ -269,23 +269,73 @@ document.addEventListener('click',e=>{
 $('#searchForm').addEventListener('submit',e=>{e.preventDefault();const q=$('#searchInput').value.trim();if(q)searchYouTube(q)});
 $('#homeBrand').addEventListener('click',e=>{e.preventDefault();state.page='home';state.query='';state.category='All';state.videos=[];render()});
 $('#themeBtn').addEventListener('click',()=>{document.body.classList.toggle('light');localStorage.setItem('ct_theme',document.body.classList.contains('light')?'light':'dark')});
+function finishGoogleSignIn(profile){
+  try{
+    state.signedIn=true;
+    const displayName=profile.name||profile.email||'Google account';
+    $('#signInBtn').textContent=displayName;
+    localStorage.setItem('ct_googleName',displayName);
+    localStorage.setItem('ct_googleEmail',profile.email||'');
+    toast('Signed in as '+displayName+'. ClearTube suggestions use activity saved in this browser.');
+    const activity=[...getList('liked'),...getList('saved'),...getList('recent')];
+    if(activity.length){
+      const counts={};
+      activity.forEach(item=>{const cat=item.category||'popular videos';counts[cat]=(counts[cat]||0)+1});
+      const interest=Object.keys(counts).sort((a,b)=>counts[b]-counts[a])[0];
+      searchYouTube(interest==='popular videos'?'popular videos':interest+' videos');
+    }else{
+      state.page='home';state.query='';state.videos=[];render();
+    }
+  }catch(e){toast('Signed in, but ClearTube could not update the page: '+e.message)}
+}
 function beginGoogleSignIn(){
-  if(!state.clientId){state.page='settings';render();toast('Add your Google OAuth Client ID in Customize first.');return}
-  if(!window.google?.accounts?.id){
-    if(!document.getElementById('google-gsi-script')){const script=document.createElement('script');script.id='google-gsi-script';script.src='https://accounts.google.com/gsi/client';script.async=true;script.onload=beginGoogleSignIn;script.onerror=()=>toast('Google sign-in library could not load.');document.head.appendChild(script)}
+  if(!state.clientId){
+    state.page='settings';render();
+    toast('Add your Google OAuth Client ID in Customize first.');
     return;
   }
-  google.accounts.id.initialize({client_id:state.clientId,callback:credentialResponse=>{
-    try{const payload=JSON.parse(atob(credentialResponse.credential.split('.')[1].replace(/-/g,'+').replace(/_/g,'/')));state.signedIn=true;$('#signInBtn').textContent=payload.name||'Google account';localStorage.setItem('ct_googleName',payload.name||'Google account');localStorage.setItem('ct_googleEmail',payload.email||'');toast('Signed in as '+(payload.name||'Google account')+'. Building your ClearTube feed from activity in this browser.');
-      const activity=[...getList('liked'),...getList('saved'),...getList('recent')];
-      if(activity.length){
-        const counts={};activity.forEach(item=>{const cat=item.category||'popular videos';counts[cat]=(counts[cat]||0)+1});
-        const interest=Object.keys(counts).sort((a,b)=>counts[b]-counts[a])[0];
-        searchYouTube(interest==='popular videos'?'popular videos':interest+' videos');
-      }else{
-        state.page='home';state.query='';state.videos=[];render();
-      }}catch{toast('Google responded, but profile details could not be read.')}}});
-  google.accounts.id.prompt();
+  if(!window.google?.accounts?.oauth2){
+    if(!document.getElementById('google-gsi-script')){
+      const script=document.createElement('script');
+      script.id='google-gsi-script';
+      script.src='https://accounts.google.com/gsi/client';
+      script.async=true;
+      script.onload=()=>toast('Google sign-in loaded. Click Sign in with Google again.');
+      script.onerror=()=>toast('Google sign-in library could not load. Check your connection or browser extensions.');
+      document.head.appendChild(script);
+    }else{
+      toast('Google sign-in is still loading. Try clicking again in a moment.');
+    }
+    return;
+  }
+  try{
+    const tokenClient=google.accounts.oauth2.initTokenClient({
+      client_id:state.clientId,
+      scope:'openid email profile',
+      callback:async response=>{
+        if(response.error){
+          toast('Google sign-in failed: '+response.error);
+          return;
+        }
+        try{
+          const res=await fetch('https://www.googleapis.com/oauth2/v3/userinfo',{
+            headers:{Authorization:'Bearer '+response.access_token}
+          });
+          const profile=await res.json();
+          if(!res.ok)throw new Error(profile.error_description||profile.error||'Could not retrieve Google profile');
+          finishGoogleSignIn(profile);
+        }catch(error){
+          toast('Google sign-in could not load your profile: '+error.message);
+        }
+      },
+      error_callback:error=>{
+        toast('Google sign-in popup could not open: '+(error.type||'browser blocked the popup'));
+      }
+    });
+    tokenClient.requestAccessToken({prompt:'select_account'});
+  }catch(error){
+    toast('Google sign-in could not start: '+error.message);
+  }
 }
 $('#signInBtn').addEventListener('click',beginGoogleSignIn);
 const savedGoogleName=localStorage.getItem('ct_googleName');if(savedGoogleName){$('#signInBtn').textContent=savedGoogleName;state.signedIn=true;}
